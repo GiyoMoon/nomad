@@ -41,6 +41,11 @@ job "traefik" {
         read_only = false
       }
 
+      env {
+        CLOUDFLARE_EMAIL = "EMAIL"
+        CLOUDFLARE_DNS_API_TOKEN = "TOKEN"
+      }
+
       config {
         image = "traefik:2.8"
         ports = ["admin", "http", "https"]
@@ -52,8 +57,9 @@ job "traefik" {
           "--entrypoints.traefik.address=:${NOMAD_PORT_admin}",
           "--providers.nomad=true",
           "--providers.nomad.endpoint.address=http://host.docker.internal:4646",
-          "--certificatesresolvers.letsencrypt.acme.tlschallenge=true",
-          "--certificatesresolvers.letsencrypt.acme.email=me@example.com",
+          "--certificatesresolvers.letsencrypt.acme.dnschallenge=true",
+          "--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare",
+          "--certificatesresolvers.letsencrypt.acme.email=EMAIL",
           "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json",
         ]
         extra_hosts = ["host.docker.internal:host-gateway"]
