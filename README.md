@@ -60,7 +60,6 @@ sudo touch /etc/systemd/system/nomad.service
 ```
 Edit the file `/etc/systemd/system/nomad.service` and insert [this](./nomad.service) content.
 ```bash
-sudo usermod -G docker -a nomad
 sudo systemctl enable nomad.service
 sudo systemctl start nomad.service
 ```

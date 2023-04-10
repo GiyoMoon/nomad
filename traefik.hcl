@@ -53,6 +53,8 @@ job "traefik" {
           "--api.dashboard=true",
           "--api.insecure=true",
           "--entrypoints.web.address=:${NOMAD_PORT_http}",
+          "--entrypoints.web.http.redirections.entryPoint.to=websecure",
+          "--entrypoints.web.http.redirections.entryPoint.scheme=https",
           "--entryPoints.websecure.address=:${NOMAD_PORT_https}",
           "--entrypoints.traefik.address=:${NOMAD_PORT_admin}",
           "--providers.nomad=true",
