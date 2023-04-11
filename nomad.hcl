@@ -19,3 +19,12 @@ client {
     interface = "wg0"
   }
 }
+
+# If you want to use docker auth credentials from the root user
+plugin "docker" {
+  config {
+    auth {
+      config = "/root/.docker/config.json"
+    }
+  }
+}
